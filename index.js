@@ -55,6 +55,8 @@ if (cluster.isMaster) {
         const prefix = 'Untitled notebook';
         const defaultFilePath = path.join(audioDirectory, `${filename}.wav`);
         const prefixedFilePath = path.join(audioDirectory, `${prefix} ${filename}.wav`);
+        console.log(defaultFilePath);
+        console.log(prefixedFilePath);
     
         // Check if the file exists with or without the prefix
         if (fs.existsSync(defaultFilePath)) {
