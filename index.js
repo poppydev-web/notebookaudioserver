@@ -47,19 +47,22 @@ if (cluster.isMaster) {
         });
     });
 
-    // Route to serve a specific audio file by name without extension
+    // Route to serve a specific audio file by name without extension  Untitled notebookAUDIO_20241104181028_05rb
     app.get('/audio/:filename', (req, res) => {
         const filename = req.params.filename;
-        const filePath = path.join(audioDirectory, `${filename}.wav`);
-
-        if (fs.existsSync(filePath)) {
-            res.sendFile(filePath);
+    
+        // Define the possible prefixes
+        const prefix = 'Untitled notebook';
+        const defaultFilePath = path.join(audioDirectory, `${filename}.wav`);
+        const prefixedFilePath = path.join(audioDirectory, `${prefix} ${filename}.wav`);
+    
+        // Check if the file exists with or without the prefix
+        if (fs.existsSync(defaultFilePath)) {
+            res.sendFile(defaultFilePath);
+        } else if (fs.existsSync(prefixedFilePath)) {
+            res.sendFile(prefixedFilePath);
         } else {
             res.status(404).send('File not found');
         }
-    });
-
-    app.listen(PORT, () => {
-        console.log(`Worker ${process.pid} is running on http://localhost:${PORT}`);
     });
 }
