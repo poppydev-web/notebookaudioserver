@@ -65,4 +65,8 @@ if (cluster.isMaster) {
             res.status(404).send('File not found');
         }
     });
+
+    app.listen(PORT, () => {
+        console.log(`Worker ${process.pid} is running on http://localhost:${PORT}`);
+    });
 }
